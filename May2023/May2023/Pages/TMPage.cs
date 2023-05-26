@@ -1,6 +1,7 @@
 ﻿using May2023.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using System.Diagnostics;
 
 
 namespace May2023.Pages
@@ -16,6 +17,7 @@ namespace May2023.Pages
             //fill out relevant fields to create a new record 
             IWebElement typeCodeDropdown = driver.FindElement(By.XPath("/html/body/div[4]/form/div/div[1]/div/span[1]/span/span[1]"));
             typeCodeDropdown.Click();
+            Thread.Sleep(1000);
 
             IWebElement timeOption = driver.FindElement(By.XPath("/html/body/div[5]/div/ul/li[2]"));
             timeOption.Click();
@@ -57,7 +59,7 @@ namespace May2023.Pages
             Thread.Sleep(3000);
             IWebElement lastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             lastPageButton.Click();
-
+            Thread.Sleep(4000);
 
             IWebElement lastElement = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
 
@@ -72,22 +74,39 @@ namespace May2023.Pages
             {
                 Assert.Fail("New record created hasn't been found.");
             }
-                        
+
+            //edit code into code textbox
             IWebElement codeTextbox = driver.FindElement(By.Id("Code"));
             codeTextbox.Clear();
             codeTextbox.SendKeys("June2023");
 
+            //edit description into description box
             IWebElement descriptionTextbox = driver.FindElement(By.Id("Description"));
             descriptionTextbox.Clear();
             descriptionTextbox.SendKeys("June2023");
 
-            IWebElement priceTextbox = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[4]/div/span[1]/span/input[1]"));
-            priceTextbox.SendKeys("30");
-            Thread.Sleep(2000);
+            //edit price into price per unit textbox
+            IWebElement editpriceOverlap = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[4]/div/span[1]/span/input[1]"));
+            IWebElement editpriceTextbox = driver.FindElement(By.Id("Price"));
 
+            editpriceOverlap.Click();
+            editpriceTextbox.Clear();
+            editpriceOverlap.Click();
+            editpriceTextbox.SendKeys("30");
+
+            //click on save button
             IWebElement saveButton = driver.FindElement(By.Id("SaveButton"));
             saveButton.Click();
             Thread.Sleep(1000);
+
+            //check if Time record has been edited
+            IWebElement goToEditLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+            goToEditLastPageButton.Click();
+            Thread.Sleep(1500);
+
+            //find the last record on list page 
+            IWebElement editedCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            Assert.That(editedCode.Text == "June2023", "Actual Code and expected code do not match.");
         }
 
         public void DeleteTM(IWebDriver driver)

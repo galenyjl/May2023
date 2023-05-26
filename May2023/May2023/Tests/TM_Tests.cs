@@ -4,8 +4,6 @@ using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using May2023.Utilities;
 using NUnit.Framework;
 
@@ -15,26 +13,14 @@ namespace May2023.Tests
     [Parallelizable]
     public class TM_Tests : CommonDriver
     {
-        [SetUp]
-        public void SetUpActions()
-        {
-            // open chrome browser
-            driver = new ChromeDriver();
-
-            // Login page object initialization and definition
-            LoginPage loginPageObj = new LoginPage();
-            loginPageObj.LoginSteps(driver);
-
-            // Home page object initialization and definition
-            Homepage homePageObj = new Homepage();
-            homePageObj.GoToTMPage(driver);
-        }
+        Homepage homePageObj = new Homepage();
+        TMPage tmPageObj = new TMPage();
 
         [Test, Order (1)]
         public void CreateTime_Test()
         {
             // TM page object initialization and definition
-            TMPage tmPageObj = new TMPage();
+            homePageObj.GoToTMPage(driver);
             tmPageObj.CreateTime(driver);
         }
 
@@ -42,7 +28,7 @@ namespace May2023.Tests
         public void EditTime_Test()
         {
             // TM page object initialization and definition
-            TMPage tmPageObj = new TMPage();
+            homePageObj.GoToTMPage(driver);
             // Edit Time record
             tmPageObj.EditTM(driver);
         }
@@ -51,26 +37,9 @@ namespace May2023.Tests
         public void DeleteTime_Test()
         {
             // TM page object initialization and definition
-            TMPage tmPageObj = new TMPage();
+            homePageObj.GoToTMPage(driver);
             // Delete Time record
             tmPageObj.DeleteTM(driver);
         }
-
-        [TearDown]
-        public void CloseTestRun()
-        {
-            driver.Quit();
-        }
-
-
-
-
-
-
-
-
-
-
-
     }
 }
