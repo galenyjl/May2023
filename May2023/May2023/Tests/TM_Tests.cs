@@ -30,7 +30,7 @@ namespace May2023.Tests
             // TM page object initialization and definition
             homePageObj.GoToTMPage(driver);
             // Edit Time record
-            tmPageObj.EditTM(driver);
+            //tmPageObj.EditTM(driver);
         }
 
         [Test, Order (3)]
