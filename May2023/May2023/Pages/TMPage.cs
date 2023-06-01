@@ -60,7 +60,7 @@ namespace May2023.Pages
             return newPrice.Text;
         }
 
-        public void EditTM(IWebDriver driver, string description)
+        public void EditTM(IWebDriver driver, string description, string code, string price)
         {
             Thread.Sleep(3000);
             IWebElement lastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
@@ -84,7 +84,7 @@ namespace May2023.Pages
             //edit code into code textbox
             IWebElement codeTextbox = driver.FindElement(By.Id("Code"));
             codeTextbox.Clear();
-            codeTextbox.SendKeys("June2023");
+            codeTextbox.SendKeys(code);
 
             //edit description into description box
             IWebElement descriptionTextbox = driver.FindElement(By.Id("Description"));
@@ -98,7 +98,7 @@ namespace May2023.Pages
             editpriceOverlap.Click();
             editpriceTextbox.Clear();
             editpriceOverlap.Click();
-            editpriceTextbox.SendKeys("30");
+            editpriceTextbox.SendKeys(price);
 
             //click on save button
             IWebElement saveButton = driver.FindElement(By.Id("SaveButton"));
@@ -119,6 +119,18 @@ namespace May2023.Pages
         {
             IWebElement createdDescription = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
             return createdDescription.Text;
+        }
+
+        public string GetEditedCode(IWebDriver driver)
+        {
+            IWebElement createdCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            return createdCode.Text;
+        }
+
+        public string GetEditedPrice(IWebDriver driver)
+        {
+            IWebElement createdPrice = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[4]"));
+            return createdPrice.Text;
         }
 
 
