@@ -8,15 +8,32 @@
 	"item": [
 		{
 			"name": "Get all user data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Id check\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data[0].id).to.eql(1);\r",
+							"    pm.expect(jsonData.data[1].id).to.eql(2);\r",
+							"    pm.expect(jsonData.data[2].id).to.eql(3);\r",
+							"    pm.expect(jsonData.data[3].id).to.eql(4);\r",
+							"    pm.expect(jsonData.data[4].id).to.eql(5);\r",
+							"    pm.expect(jsonData.data[5].id).to.eql(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://reqres.in/api/users",
-					"protocol": "https",
+					"raw": "{{baseUrl}}/api/users",
 					"host": [
-						"reqres",
-						"in"
+						"{{baseUrl}}"
 					],
 					"path": [
 						"api",
@@ -32,96 +49,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://reqres.in/api/users/10",
-					"protocol": "https",
+					"raw": "{{baseUrl}}/api/users/10",
 					"host": [
-						"reqres",
-						"in"
+						"{{baseUrl}}"
 					],
 					"path": [
 						"api",
 						"users",
 						"10"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create a new user",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"galen\",\r\n    \"job\": \"manual tester\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://reqres.in/api/users",
-					"protocol": "https",
-					"host": [
-						"reqres",
-						"in"
-					],
-					"path": [
-						"api",
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update an existing user record",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"galen\",\r\n    \"job\": \"automation tester\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://reqres.in/api/users/368",
-					"protocol": "https",
-					"host": [
-						"reqres",
-						"in"
-					],
-					"path": [
-						"api",
-						"users",
-						"368"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete an existing user record",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "https://reqres.in/api/users/368",
-					"protocol": "https",
-					"host": [
-						"reqres",
-						"in"
-					],
-					"path": [
-						"api",
-						"users",
-						"368"
 					]
 				}
 			},
